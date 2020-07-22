@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.text_project.dao.EmployeeDao">
+    <resultMap id="employee" type="Employee">
+        <result property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="cardId" column="CARD_ID"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="postCode" column="POST_CODE"/>
+        <result property="tel" column="TEL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="qqNumber" column="QQ_NUM"/>
+        <result property="email" column="EMAIL"/>
+        <result property="sex" column="SEX"/>
+        <result property="party" column="PARTY"/>
+        <result property="birthday" column="BIRTHDAY"/>
+        <result property="race" column="RACE"/>
+        <result property="education" column="EDUCATION"/>
+        <result property="speciality" column="SPECIALITY"/>
+        <result property="hobby" column="HOBBY"/>
+        <result property="remark" column="REMARK"/>
+        <result property="createDate" column="CREATE_TIME"/>
+        <association property="depart" javaType="Department" resultMap="com.text_project.dao.DepartmentDao.department"/>
+        <association property="job" javaType="Job" resultMap="com.text_project.dao.JobDao.job"/>
+    </resultMap>
+
+    <resultMap id="education" type="Employee">
+        <result property="education" column="name"/>
+    </resultMap>
+
+    <resultMap id="party" type="Employee">
+        <result property="party" column="name"/>
+    </resultMap>
+
+    <select id="getEducationList" resultMap="education">
+        select name from education;
+    </select>
+
+    <select id="getPartyList" resultMap="party">
+        select name from party;
+    </select>
+
+    <update id="setDefaultDepart" parameterType="int">
+        update employee_inf set DEPT_ID=1 where DEPT_ID=#{departId}
+    </update>
+
+    <update id="setDefaultJob" parameterType="int">
+        update employee_inf set JOB_ID=1 where JOB_ID=#{jobId};
+    </update>
+
+    <insert id="addEmployee" parameterType="Employee">
+        insert into employee_inf
+        (DEPT_ID,JOB_ID,NAME,CARD_ID,ADDRESS,POST_CODE,TEL,PHONE,QQ_NUM,EMAIL,SEX,PARTY,
+        BIRTHDAY,RACE,EDUCATION,SPECIALITY,HOBBY,REMARK,CREATE_DATE)
+        value(#{depart.id},#{job.id},#{name},#{cardId},
+        #{address},#{postCode},#{tel},#{phone},#{qqNumber},
+        #{email},#{sex},#{party},#{birthday},#{race},#{education},#{speciality},#{hobby},#{remark},#{createDate})
+    </insert>
+
+    <select id="getEmployeeList" resultMap="employee">
+        select e.ID,e.NAME,e.CARD_ID,e.POST_CODE,e.TEL,e.ADDRESS,
+        e.PHONE,e.QQ_NUM,e.EMAIL,e.SEX,e.PARTY,e.BIRTHDAY,e.RACE,e.EDUCATION,e.SPECIALITY,
+        e.HOBBY,e.REMARK,e.CREATE_DATE,
+        d.ID depart_id,d.name depart_name,d.remark depart_remark,
+        j.ID job_id,j.name job_name,j.remark job_remark
+        from employee_inf e,dept_inf d,job_inf j
+         where e.NAME!='管理员'and e.DEPT_ID=d.ID limit #{start},#{rows}
+    </select>
+
+    <delete id="deleteEmployee" parameterType="Employee">
+        delete from employee_inf where ID=#{id}
+    </delete>
+
+    <update id="updateEmployee" parameterType="Employee">
+        update employee_inf
+        <set>
+            <if test="cardId!=null and cardId!=''">
+                CARD_ID=#{cardId},
+            </if>
+            <if test="address!=null and address!=''">
+                ADDRESS=#{address},
+            </if>
+            <if test="postCode!=null and postCode!=''">
+                POST_CODE=#{postCode},
+            </if>
+            <if test="tel!=null and tel!=''">
+                TEL=#{tel},
+            </if>
+            <if test="phone!=null and phone!=''">
+                PHONE=#{phone},
+            </if>
+            <if test="qqNumber!=null and qqNumber!=''">
+                QQ_NUM=#{qqNumber},
+            </if>
+            <if test="email!=null and email!=''">
+                EMAIL=#{email},
+            </if>
+            <if test="race!=null and race!=''">
+                RACE=#{race},
+            </if>
+            <if test="birthday!=null and birthday!=''">
+                BIRTHDAY=#{birthday},
+            </if>
+            <if test="party!=null and party!=''">
+                PARTY=#{party},
+            </if>
+            <if test="education!=null and education!=''">
+                EDUCATION=#{education},
+            </if>
+            <if test="hobby!=null and hobby!=''">
+                HOBBY=#{hobby},
+            </if>
+            <if test="remark!=null and remark!=''">
+                REMARK=#{remark}
+            </if>
+        </set>
+        WHERE ID=#{id}
+    </update>
+
+    <select id="getCount" resultType="int">
+        select count(*) from employee_inf;
+    </select>
+</mapper>

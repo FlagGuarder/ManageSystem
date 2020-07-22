@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.text_project.dao.JobDao">
+    <resultMap id="job" type="Job">
+        <result property="id" column="job_id"/>
+        <result property="name" column="job_name"/>
+        <result property="remark" column="job_remark"/>
+    </resultMap>
+
+    <insert id="addJob" parameterType="Job">
+        insert into job_inf(NAME,remark) value(#{name},#{remark});
+    </insert>
+
+    <select id="init" resultMap="job" parameterType="PageInfo">
+        select ID job_id,NAME job_name,remark job_remark from job_inf where ID!=1 limit #{start},#{rows};
+    </select>
+
+    <delete id="deleteJobById" parameterType="Job">
+        delete from job_inf where ID=#{id}
+    </delete>
+
+    <update id="updateById" parameterType="Job">
+        update job_inf
+        <set>
+            <if test="name!=null and name!=''">
+                NAME=#{name},
+            </if>
+            <if test="remark!=null and remark!=''">
+                remark=#{remark}
+            </if>
+        </set>
+        where ID=#{id}
+    </update>
+
+    <select id="getJobList" parameterType="Job" resultMap="job">
+        select ID job_id,NAME job_name,remark job_remark from job_inf where ID!=1
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(*) from job_inf;
+    </select>
+</mapper>

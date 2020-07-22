@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>添加部门</title>
+    <link rel="stylesheet" type="text/css"
+          href="easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/add_job.js"></script>
+</head>
+<body>
+<div style="margin: 20px 0;"></div>
+<div class="easyui-panel" title="添加职位"
+     style="width: 700px; height: 500px;">
+    <div style="padding: 40px 60px 20px 60px;">
+        <form id="dataForm" class="easyui-form">
+            <table cellpadding="10">
+                <tr>
+                    <td>职位名称:</td>
+                    <td><input class="easyui-textbox" type="text" id="name"
+                               data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td><input class="easyui-textbox" type="text" id="remark"></td>
+                </tr>
+            </table>
+        </form>
+        <div style="text-align: left; padding: 20px; margin-top: 50px">
+            <a href="javascript:void(0)" class="easyui-linkbutton"
+               onclick="submitJob()">添加</a> &nbsp;&nbsp;&nbsp; <a
+                href="javascript:void(0)" class="easyui-linkbutton"
+                onclick="resetForm()">重置</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

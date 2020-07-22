@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>人事管理系统</title>
+    <link rel="stylesheet" type="text/css"
+          href="easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body class="easyui-layout" data-options="fit:true" onload="init()">
+<div class="easyui-layout"style="width: 100%; height: 100%;" id="app">
+    <!--top-->
+    <div data-options="region:'north',border:false"
+         style="background-image: url('images/topbg.gif'); height: 80px; overflow: hidden">
+        <div style="position: relative;">
+            <img src="images/top_logo.png" alt="找不到图片">
+            <table style="position: absolute; right: 35px; top: 15px;">
+                <tr>
+                    <td style="width: 25px"><img src="images/top_home.gif">
+                    </td>
+                    <td style="width: 120px"><a href=""
+                                                style="color: #FFFFFF; text-decoration: none">首页</a></td>
+                    <td style="width: 25px"><img src="images/top_exit.gif"></td>
+                    <td style="width: 120px">
+                        <a onclick="logout()"
+                           style="color: #FFFFFF; text-decoration: none">退出登录</a></td>
+                </tr>
+            </table>
+            <div
+                    style="position: absolute; background-image: url('images/StatBarBg.png'); left: 400px; top: 47px; width: 100%; height: 33px; background-size: 100% 100%;">
+                <div style="width: 100%">
+                    <table style="margin-left: 50px; margin-top: 7px">
+                        <tr>
+                            <td style="width: 25px"><img src="images/StatBar_admin.gif"></td>
+                            <td style="width: 180px">当前用户:<span id="userName">${ }</span></td>
+                            <td style="width: 540px"></td>
+                            <td style="width: 25px"><img src="images/StatBar_time.gif"></td>
+                            <td style="width: 300px"><p id="ptime"></p></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--down-->
+    <div data-options="region:'south',border:false" style="height: 25px;">
+        <center>©2016-2020 五邑大学&nbsp;&nbsp;&nbsp;160803</center>
+    </div>
+
+    <!--right-->
+    <div data-options="region:'east'," title="系统说明" style="width: 100px;"></div>
+
+    <!--left
+     background-color: #E6EEF8-->
+    <div data-options="region:'west'"
+         title="公司人事信息管理" style="width: 200px;">
+        <div>
+            <el-collapse accordion>
+            <!--class="easyui-accordion"
+            -->
+            <!--用户管理-->
+            <el-collapse-item>
+                <template slot="title">
+                    <i class="el-icon-s-custom" style="font-size: 20px;margin-left: 10px;">
+                        用户管理</i>
+                </template>
+            <div title="用户管理"
+                 style="overflow: auto; padding: 10px; height: 200px; ">
+                <a class="easyui-linkbutton"
+                   data-options="plain:true"
+                    id="selectuser">
+                    <span class="el-icon-search" style="font-size: 18px;"/>
+                    用户查询
+                </a>
+                <!--data-options="plain:true,iconCls:'icon-zoom'"-->
+                <!--data-options="plain:true,iconCls:'icon-groupadd'"
+                data-options="iconCls:'icon-group'"
+                -->
+                <a class="easyui-linkbutton"
+                   data-options="plain:true"
+                    id="adduser"
+                    style="margin-top: 10px;">
+                    <span class="el-icon-plus" style="font-size: 18px;"/>
+                    添加用户</a>
+
+            </div>
+            </el-collapse-item>
+            <!--部门管理-->
+            <el-collapse-item>
+                <template slot="title">
+                    <i class="el-icon-s-cooperation" style="font-size: 20px;margin-left: 10px;">部门管理</i>
+                </template>
+                <div title="部门管理" data-options="iconCls:'icon-edit'"
+                 style="overflow: auto; padding: 10px; height: 200px">
+                <a class="easyui-linkbutton"
+                   data-options="plain:true" id="selectdept">
+                    <span class="el-icon-search" style="font-size: 18px;"/>
+                    部门查询</a>
+                <a class="easyui-linkbutton"
+                   data-options="plain:true" id="adddept"
+                   style="margin-top: 10px;">
+                    <span class="el-icon-plus" style="font-size: 18px;"/>
+                    添加部门</a>
+            </div>
+            </el-collapse-item>
+            <!--职位管理-->
+            <el-collapse-item>
+                <template slot="title">
+                    <i class="el-icon-user" style="font-size: 20px;margin-left: 10px;">职位管理</i>
+                </template>
+                <div title="职位管理"
+                 style="overflow: auto; padding: 10px; height: 200px">
+                <a class="easyui-linkbutton" onclick="return false"
+                   data-options="plain:true" id="selectjob">
+                    <span class="el-icon-search" style="font-size: 18px;"/>
+                    职位查询</a>
+                <a class="easyui-linkbutton" onclick="return false"
+                   data-options="plain:true" id="addjob"
+                   style="margin-top: 10px;">
+                    <span class="el-icon-plus" style="font-size: 18px;"/>
+                    添加职位</a>
+                </div>
+            </el-collapse-item>
+            <!--员工管理-->
+            <el-collapse-item>
+                <template slot="title">
+                    <i class="el-icon-user-solid" style="font-size: 20px;margin-left: 10px;">员工管理</i>
+                </template>
+                <div title="员工管理"
+                 style="overflow: auto; padding: 10px; height: 200px">
+                <a class="easyui-linkbutton"
+                    data-options="plain:true" id="selectEmp">
+                    <span class="el-icon-search" style="font-size: 18px;"/>
+                    员工查询</a>
+                <a class="easyui-linkbutton" onclick="return false"
+                   data-options="plain:true" id="addEmp"
+                   style="margin-top: 10px;">
+                    <span class="el-icon-plus" style="font-size: 18px;"/>
+                    添加员工</a>
+            </div>
+            </el-collapse-item>
+            <!--公告管理-->
+            <el-collapse-item>
+                <template slot="title">
+                    <i class="el-icon-edit-outline" style="font-size: 20px;margin-left: 10px;">公告管理</i>
+                </template>
+                <div title="公告管理"
+                 style="overflow: auto; padding: 10px; height: 200px">
+                <a class="easyui-linkbutton" onclick="return false"
+                   data-options="plain:true" id="selectNotice">
+                    <span class="el-icon-search" style="font-size: 18px;"/>
+                    公告查询</a>
+                <a class="easyui-linkbutton" onclick="return false"
+                   data-options="plain:true" id="addNotice"
+                   style="margin-top: 10px;">
+                    <span class="el-icon-plus" style="font-size: 18px;"/>
+                    添加公告</a>
+            </div>
+            </el-collapse-item>
+            <!--下载中心-->
+            <el-collapse-item>
+                <template slot="title">
+                    <i class="el-icon-document" style="font-size: 20px;margin-left: 10px;">下载中心</i>
+                </template>
+                <div title="下载中心"
+                 style="overflow: auto; padding: 10px; height: 200px">
+                <a class="easyui-linkbutton" onclick="return false"
+                   data-options="plain:true" id="filesDL">
+                    <span class="el-icon-download" style="font-size: 18px;"/>
+                    文件下载</a>
+                <a class="easyui-linkbutton" onclick="return false"
+                   data-options="plain:true" id="upload"
+                   style="margin-top: 10px;">
+                    <span class="el-icon-upload2" style="font-size: 18px;"/>
+                    文件上传</a>
+            </div>
+            </el-collapse-item>
+            </el-collapse>
+        </div>
+    </div>
+
+    <!--最中间边部分-->
+    <div data-options="region:'center',split:true">
+        <div class="easyui-tabs" style="height: 100%" id="usertab"></div>
+    </div>
+
+</div>
+</body>
+</html>
+
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+</script>

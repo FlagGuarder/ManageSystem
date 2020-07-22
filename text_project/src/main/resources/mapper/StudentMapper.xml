@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.text_project.dao.StudentDao">
+    <resultMap id="student" type="Student">
+        <result property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="userName" column="username"/>
+        <result property="password" column="password"/>
+        <result property="classInfo" column="classinfo"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <select id="login" parameterType="Student" resultMap="student">
+        select number,id,username from student where number=#{number} and password=#{password}
+    </select>
+
+    <select id="selectStudentByCondition" parameterType="Student" resultMap="student">
+        select id,number,username,password,classinfo from student
+        <where>
+            <if test="number!=null and number!=0">
+                number=#{number}
+            </if>
+            <if test="userName!=null and userName!=''">
+                and username=#{userName}
+            </if>
+            <if test="classInfo!=null and classInfo!=''">
+                and classinfo=#{classInfo}
+            </if>
+            and number!='admin'
+        </where>
+    </select>
+
+    <delete id="deleteStudentById" parameterType="Student">
+        delete from student where id=#{id}
+    </delete>
+
+    <update id="updateStudentByNumber" parameterType="Student">
+        <if test="number!=null and number!=''">
+            update student
+            <set>
+                <if test="userName!=null and userName!=''">
+                    username=#{userName},
+                </if>
+                <if test="password!=null and password!=''">
+                    password=#{password},
+                </if>
+                <if test="classInfo!=null and classInfo!=''">
+                    classInfo=#{classInfo},
+                </if>
+            </set>
+            where number=#{number}
+        </if>
+    </update>
+
+    <insert id="addStudent" parameterType="Student">
+        insert into student(number,username,password,classinfo) value(#{number},#{userName},#{password},#{classInfo})
+    </insert>
+
+    <select id="selectStudent" resultMap="student">
+        select id,number,username,password,classinfo from student
+        <where>
+            <if test="student.number!=null and student.number!=''">
+                number=#{student.number}
+            </if>
+            <if test="student.userName!=null and student.userName!=''">
+                and username like CONCAT('%',#{student.userName},'%')
+            </if>
+            <if test="student.classInfo!=null and student.classInfo!=''">
+                and classinfo=#{student.classInfo}
+            </if>
+            and number!='admin'
+        </where>
+        limit #{pageInfo.start},#{pageInfo.rows};
+    </select>
+
+    <select id="getCount" parameterType="Student" resultType="int">
+        select count(*) from student
+        <where>
+            <if test="number!=null and number!=''">
+                number=#{number}
+            </if>
+            <if test="userName!=null and userName!=''">
+                and username=#{userName}
+            </if>
+            <if test="classInfo!=null and classInfo!=''">
+                and classinfo=#{classInfo}
+            </if>
+            and number!='admin'
+        </where>
+    </select>
+
+</mapper>

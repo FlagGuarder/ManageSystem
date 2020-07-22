@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>员工查询</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/select_employee.js"></script>
+</head>
+<body onload="init()">
+<div style="overflow: auto; width: 100%;">
+    <table id="dg" style="width: 3000px; height: 500px"></table>
+</div>
+<div id="dlg" class="easyui-dialog" title="修改员工信息"
+     style="width: 400px; height: 450px; padding: 10px"
+     data-options="
+				closed:true,
+				iconCls: 'icon-edit',
+				toolbar: '#dlg-toolbar',
+				buttons: '#dlg-buttons'">
+    <div>
+        <form class="easyui-form">
+            <table cellpadding="10">
+                <tr>
+                    <td>员工编号</td>
+                    <td><input class="easyui-textbox" type="text" name="id"
+                               id="id" data-options="required:true" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>姓名:</td>
+                    <td><input class="easyui-textbox" type="text" name="name"
+                               id="name" data-options="required:true" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>性别:</td>
+                    <td><input class="easyui-textbox" type="text" name="sex"
+                               id="sex" data-options="required:true" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>部门:</td>
+                    <td><input class="easyui-textbox" type="text" name="depatname"
+                               id="deptname" data-options="required:true" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>工作:</td>
+                    <td><input class="easyui-textbox" type="text" name="jobname"
+                               id="jobname" data-options="required:true" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>卡号:</td>
+                    <td><input class="easyui-textbox" type="text" name="cardId"
+                               id="cardId" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>地址:</td>
+                    <td><input class="easyui-textbox" type="text" name="address"
+                               id="address" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>邮编:</td>
+                    <td><input class="easyui-textbox" type="text" name="postCode"
+                               id="postCode" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>固话:</td>
+                    <td><input class="easyui-textbox" type="text" name="tel"
+                               id="tel" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>手机:</td>
+                    <td><input class="easyui-textbox" type="text" name="phone"
+                               id="phone" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>QQ:</td>
+                    <td><input class="easyui-textbox" type="text" name="qqNumber"
+                               id="qqNumber" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>邮箱:</td>
+                    <td><input class="easyui-textbox" type="text" name="email"
+                               id="email" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>政治面貌:</td>
+                    <td><input class="easyui-textbox" type="text" name="party"
+                               id="party" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>出生日期:</td>
+                    <td><input class="easyui-textbox" type="date" name="birthday"
+                               id="birthday"></td>
+                </tr>
+                <tr>
+                    <td>民族:</td>
+                    <td><input class="easyui-textbox" type="text" name="race"
+                               id="race" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>学历:</td>
+                    <td><input class="easyui-textbox" type="text" name="education"
+                               id="education" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>爱好:</td>
+                    <td><input class="easyui-textbox" type="text" name="hobby"
+                               id="hobby" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td><input class="easyui-textbox" type="text" name="remark"
+                               id="remark" data-options="required:true"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       onclick="handleUpdateEmployee()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       onclick="javascript:$('#dlg').dialog('close')">取消</a>
+</div>
+</body>
+</html>

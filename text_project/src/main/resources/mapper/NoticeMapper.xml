@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.text_project.dao.NoticeDao">
+    <resultMap id="notice" type="Notice">
+        <result property="id" column="id"/>
+        <result property="name" column="noticename"/>
+        <result property="time" column="time"/>
+        <result property="title" column="title"/>
+        <result property="stuName" column="stuname"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <insert id="addNotice" parameterType="Notice">
+        insert into notice(noticename,time,title,stuname,content) value(#{name},#{time},#{title},#{stuName},#{content});
+    </insert>
+
+    <delete id="deleteAllNotice">
+        delete from notice;
+    </delete>
+
+    <select id="getNotice" resultMap="notice">
+        select * from notice;
+    </select>
+</mapper>

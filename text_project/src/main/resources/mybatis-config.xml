@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.text_project.bean.Student" alias="Student"/>
+        <typeAlias type="com.text_project.bean.Department" alias="Department"/>
+        <typeAlias type="com.text_project.bean.Employee" alias="Employee"/>
+        <typeAlias type="com.text_project.bean.Job" alias="Job"/>
+        <typeAlias type="com.text_project.bean.Notice" alias="Notice"/>
+        <typeAlias type="com.text_project.bean.FileModel" alias="FileModel"/>
+        <typeAlias type="com.text_project.bean.PageInfo" alias="PageInfo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper class="com.text_proje·ct.dao.StudentDao"/>
+        <mapper class="com.text_project.dao.EmployeeDao"/>
+        <mapper class="com.text_project.dao.NoticeDao"/>
+        <mapper class="com.text_project.dao.DepartmentDao"/>
+        <mapper class="com.text_project.dao.JobDao"/>
+        <mapper class="com.text_project.dao.FileDao"/>
+    </mappers>
+</configuration>

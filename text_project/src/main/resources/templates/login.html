@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人事登录-登录</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+    <link rel="stylespheet" type="text/css" href="easyui/themes/icon.css">
+    <link rel="stylesheet" href="login_style/css/supersized.css">
+    <link rel="stylesheet" href="login_style/css/login.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="login_style/js/supersized.3.2.7.min.js"></script>
+    <script type="text/javascript" src="login_style/js/supersized-init.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>
+<body>
+<div id="div_login">
+    <p>人事管理系统</p>
+    <div id="div_form">
+        <img src="login_style/img/logo2.jpg" alt="找不到图片">
+        <table>
+            <tr>
+                <td class="td1"><img src="login_style/img/memeber.gif" alt=""
+                                     style="width: 16px; text-align: right"></td>
+                <td><input type="text" id="userName"></td>
+            </tr>
+            <tr>
+                <td class="td1"><img src="login_style/img/lock.gif" alt=""
+                                     style="width: 16px;"></td>
+                <td><input type="password" id="password"></td>
+            </tr>
+            <tr style="background-color: inherit">
+
+                <td colspan="2">
+                    <div>
+                        <input value="登录" onclick="clickLogin()" type="button">
+                    </div>
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+</div>
+</body>
+</html>

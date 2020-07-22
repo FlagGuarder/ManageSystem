@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.text_project.dao.FileDao">
+    <resultMap id="fileModel" type="FileModel">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="customName" column="custom_name"/>
+        <result property="uploader" column="uploader"/>
+        <result property="time" column="time"/>
+    </resultMap>
+
+    <insert id="addFile" parameterType="FileModel">
+        insert into file(name,custom_name,uploader,time) value (#{name},#{customName},#{uploader},#{time})
+    </insert>
+
+    <select id="getFiles" resultMap="fileModel" parameterType="PageInfo">
+        select * from file limit #{start},#{rows};
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(*) from file;
+    </select>
+</mapper>
